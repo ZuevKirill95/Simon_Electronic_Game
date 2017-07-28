@@ -1,0 +1,84 @@
+body{
+    background: white;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: black;
+    box-sizing: border-box;
+    width: 500px;
+    height: 500px;
+    position: relative;
+    border-radius: 100%;
+    overflow: hidden; 
+    margin: 0 auto;
+}
+.block-unit{
+    width: 230px;
+    height: 230px;
+    margin: 10px;
+    cursor: pointer; 
+    box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.64);
+}
+
+.center-circle{
+    background: black;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 10px;
+
+}
+.start-circle{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: #29dd29;
+    border-radius: 100%; 
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+.red{
+    background: #a43838;
+    border-top-left-radius: 100%;
+}   
+.red:hover{
+     background: red;
+} 
+.blue{
+    background:rgba(0, 39, 255, 0.63);
+    border-bottom-left-radius: 100%;
+}
+.blue:hover{
+    background: blue;
+}
+.green{
+    background: green;
+    border-top-right-radius: 100%;
+}
+.green:hover{
+    background: #06ff06;
+}
+.yellow{
+    background: #d5d52c;
+    border-bottom-right-radius: 100%;
+}
+.yellow:hover{
+    background: yellow;
+}
