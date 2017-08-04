@@ -4,38 +4,48 @@ var webpack = require('webpack')
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
-    'babel-polyfill',
+    'webpack-hot-middleware/client',//здесь это нужно? webpack.HotModuleReplacementPlugin вроде и так работает
+    'babel-polyfill',//не очень понял что это. Понял так, что это позволяет пользоваться хтмл5 и ксс3 в браузерах
+                    //которые их не поддерживают          
     './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/'//Понял, что это путь к ассетам, но не совсем понял как это работает, да и пути /static
+                          //у нас вроде нет
   },
+    //Дальше вроде понял и вроде как переписал под современный стандарт, хотя есть вопросы
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
-    preLoaders: [
+    rules: [
+      {
+        test: /\.jsx$/,        
+        use: [
+          'react-hot-loader',
+          'babel-loader'],
+        include: [
+          path.resolve(__dirname, 'src'),//что за инклуд, что он делает?
+        ],
+         plugins: ['transform-runtime'],//это я вообще не понял
+     },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
       {
         test: /\.js$/,
+        enforce: 'pre',
         loaders: ['eslint'],
         include: [
-          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, 'src'),//опять этот инклуд
         ],
-      }
-    ],
-    loaders: [
-      {
-        loaders: ['react-hot', 'babel-loader'],
-        include: [
-          path.resolve(__dirname, "src"),
-        ],
-        test: /\.js$/,
-        plugins: ['transform-runtime'],
       }
     ]
   }
