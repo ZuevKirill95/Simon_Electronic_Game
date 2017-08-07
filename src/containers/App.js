@@ -7,7 +7,7 @@ class App extends Component {
     handleButtonClick = (e) => {
         e.preventDefault();
         const buttonName = e.target.className.split(' ')[1]
-        console.log('pressed: ', buttonName);
+        console.log(buttonName);
     }
 
 

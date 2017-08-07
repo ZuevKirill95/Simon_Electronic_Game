@@ -27,15 +27,18 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src'),
         ],
-       //  plugins: ['transform-runtime'],
-     },
+      },
       {
         test: /\.css$/,
         use: [
           'style-loader',
           'css-loader'
         ]
+<<<<<<< HEAD
       }
+=======
+      },
+>>>>>>> origin/master
     ]
   }
 }
