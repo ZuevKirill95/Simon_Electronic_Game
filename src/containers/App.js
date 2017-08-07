@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import './style.css';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
-          <div className="container">
+      <div className="container">
             <button className="block-unit red"></button>
             <button className="block-unit green"></button>
             <button className="block-unit blue"></button>
@@ -16,3 +16,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default App;

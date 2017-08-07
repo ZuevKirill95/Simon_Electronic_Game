@@ -36,14 +36,14 @@ module.exports = {
           'css-loader'
         ]
       },
-      {
-        test: /\.js$/,
-        enforce: 'pre',
-        loaders: ['eslint'],
-        include: [
-          path.resolve(__dirname, 'src'),
-        ],
-      }
+      // {
+      //   test: /\.js$/,
+      //   enforce: 'pre',
+      //   loaders: ['eslint'],
+      //   include: [
+      //     path.resolve(__dirname, 'src'),
+      //   ],
+      // }
     ]
   }
 }
