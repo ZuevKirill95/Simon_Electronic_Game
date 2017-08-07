@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import './style.css';
 
-class App extends Component {
-
+export default class App extends Component {
 
     handleButtonClick = (e) => {
         e.preventDefault();
         const buttonName = e.target.className.split(' ')[1]
         console.log(buttonName);
     }
-
 
     render() {
         return (
@@ -26,4 +24,3 @@ class App extends Component {
     }
 }
 
-export default App;

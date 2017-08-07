@@ -34,11 +34,7 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-<<<<<<< HEAD
       }
-=======
-      },
->>>>>>> origin/master
     ]
   }
 }
