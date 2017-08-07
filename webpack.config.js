@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    'babel-polyfill',      
+    'babel-polyfill',
     './src/index'
   ],
   output: {
@@ -20,7 +20,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,        
+        test: /\.js$/,
         use: [
           'react-hot-loader/webpack',
           'babel-loader'],
@@ -35,15 +35,7 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      },
-      // {
-      //   test: /\.js$/,
-      //   enforce: 'pre',
-      //   loaders: ['eslint'],
-      //   include: [
-      //     path.resolve(__dirname, 'src'),
-      //   ],
-      // }
+      }
     ]
   }
 }
