@@ -95,3 +95,26 @@ body{
 .yellow:hover{
     background: hsl(60, 100%, 50%);
 }
+.sequenceContainer{
+     display: flex;
+    flex-wrap: wrap;
+}
+.sequence{
+    width: 20px;
+    height: 20px;
+}
+.sequenceRed{
+    background: hsl(0,100%,50%);
+}
+.sequenceBlue{
+    color: white;
+    background: hsl(240,100%,50%);
+}
+.sequenceGreen{
+    background: hsl(120, 100%, 50%);;
+}
+.sequenceYellow{
+    background: hsl(60, 100%, 50%);;
+}
+
+
