@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
 import './style.css';
-
-class PressedButton extends React.PureComponent {
-     constructor(props) {
+class Button extends React.PureComponent{
+      constructor(props) {
         super(props);
-     }
+        this.classColor = {
+            0: 'red',
+            1: 'green',
+            2: 'yellow',
+            3: 'blue',
+        }
+    }
+    render(){
+        const id = this.props.id;
+        return(
+        <div className={`block-unit ${this.classColor[id]}`}
+         id={id}
+         onClick={this.props.click}
+         />)
+    }
+}
+class DisplayPressedButton extends React.PureComponent {
     render(){
     return (
-        <div className={`sequence ${this.props.className}`} >
+        <div className={`sequence ${this.props.color}`} >
             {this.props.value}
         </div>
     )}
@@ -16,7 +31,6 @@ class PressedButton extends React.PureComponent {
 export default class App extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             gameSequence: [],
         }
@@ -29,7 +43,7 @@ export default class App extends Component {
 
     }
 
-    handleButtonClick = (e) => {
+    handleButtonClick = (e) => {        
         e.preventDefault();
         const buttonId = e.target.id;
         const  {gameSequence} = this.state
@@ -41,10 +55,10 @@ export default class App extends Component {
 
 
     renderSequence(sequence, index) {
-        return <PressedButton
+        return <DisplayPressedButton
             value={sequence}
             key={`step_${index}`}
-            className={`sequence ${this.classColor[sequence]}`}
+            color={this.classColor[sequence]}
         />
     }
 
@@ -61,10 +75,10 @@ export default class App extends Component {
     render() {
         return (
             <div className="container">
-                <button className="block-unit red" id="0" onClick={this.handleButtonClick} />
-                <button className="block-unit green" id="1" onClick={this.handleButtonClick} />
-                <button className="block-unit blue" id="3" onClick={this.handleButtonClick} />
-                <button className="block-unit yellow" id="2" onClick={this.handleButtonClick} />
+                <Button click={this.handleButtonClick} id="0"/>
+                <Button click={this.handleButtonClick} id="1"/>
+                <Button click={this.handleButtonClick} id="3"/>                
+                <Button click={this.handleButtonClick} id="2"/>
                 <div className="center-circle">
                     <button className="start-circle"></button>
                 </div>
