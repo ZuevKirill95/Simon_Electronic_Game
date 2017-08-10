@@ -1,46 +1,50 @@
 import React, { Component } from 'react'
 import './style.css';
 
-function GameSequence(props) {
+class PressedButton extends React.PureComponent {
+     constructor(props) {
+        super(props);
+     }
+    render(){
     return (
-        <div className={`sequence ${props.className}`} >
-            {props.value}
+        <div className={`sequence ${this.props.className}`} >
+            {this.props.value}
         </div>
-    )
-}
-
-function classColor(num) {
-    switch (num) {
-        case '0': return 'sequenceRed';
-        case '1': return 'sequenceGreen';
-        case '2': return 'sequenceYellow';        
-        case '3': return 'sequenceBlue';
-        default: return 'sequenceRed';
-    }
+    )}
 }
 
 export default class App extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             gameSequence: [],
         }
+        this.classColor = {
+            0: 'sequenceRed',
+            1: 'sequenceGreen',
+            2: 'sequenceYellow',
+            3: 'sequenceBlue',
+        }
+
     }
 
     handleButtonClick = (e) => {
         e.preventDefault();
         const buttonId = e.target.id;
+        const  {gameSequence} = this.state
+        gameSequence.push(buttonId);
         this.setState({
-            gameSequence: this.state.gameSequence.concat([buttonId]),
+            gameSequence,
         })
     }
 
 
-    renderSequence(i) {
-        return <GameSequence
-            value={this.state.gameSequence[i]}
-            key={i}
-            className={classColor(this.state.gameSequence[i])}
+    renderSequence(sequence, index) {
+        return <PressedButton
+            value={sequence}
+            key={`step_${index}`}
+            className={`sequence ${this.classColor[sequence]}`}
         />
     }
 
@@ -48,7 +52,7 @@ export default class App extends Component {
         return (
             <div className="sequenceContainer">
                 {this.state.gameSequence.map((item, index) => {
-                    return this.renderSequence(index)
+                    return this.renderSequence(item, index)
                 })}
             </div>
         )
