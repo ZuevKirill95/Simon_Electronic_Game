@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
+import React, {PropTypes, Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as sequenceAction from '../actions/sequenceAction'
 import './style.css';
-class Button extends React.PureComponent{
-      constructor(props) {
+
+class Button extends React.PureComponent {
+
+    constructor(props) {
         super(props);
         this.classColor = {
             0: 'red',
@@ -10,25 +15,31 @@ class Button extends React.PureComponent{
             3: 'blue',
         }
     }
-    render(){
+
+    render() {
         const id = this.props.id;
-        return(
-        <div className={`block-unit ${this.classColor[id]}`}
-         id={id}
-         onClick={this.props.click}
-         />)
+        return (
+            <button className={`block-unit ${this.classColor[id]}`}
+                id={id}
+                onClick={this.props.click}
+            />)
     }
 }
+
+
 class DisplayPressedButton extends React.PureComponent {
-    render(){
-    return (
-        <div className={`sequence ${this.props.color}`} >
-            {this.props.value}
-        </div>
-    )}
+    render() {
+        return (
+            <div className={`sequence ${this.props.color}`} >
+                {this.props.value}
+            </div>
+        )
+    }
 }
 
-export default class App extends Component {
+
+
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,20 +51,16 @@ export default class App extends Component {
             2: 'sequenceYellow',
             3: 'sequenceBlue',
         }
-
     }
 
-    handleButtonClick = (e) => {        
+    onBtnClick(e) {
         e.preventDefault();
         const buttonId = e.target.id;
-        const  {gameSequence} = this.state
-        gameSequence.push(buttonId);
-        this.setState({
-            gameSequence,
-        })
-    }
-
-
+        const newGameSeq = this.props.gameSequence;
+        newGameSeq.push(buttonId);
+        this.props.actionBtn.addDissplayPressedButton(newGameSeq)
+      }
+      
     renderSequence(sequence, index) {
         return <DisplayPressedButton
             value={sequence}
@@ -65,7 +72,7 @@ export default class App extends Component {
     displayGameSequence() {
         return (
             <div className="sequenceContainer">
-                {this.state.gameSequence.map((item, index) => {
+                {this.props.gameSequence.map((item, index) => {
                     return this.renderSequence(item, index)
                 })}
             </div>
@@ -73,18 +80,37 @@ export default class App extends Component {
     }
 
     render() {
+      const { addDissplayPressedButton} = this.props.actionBtn;
+       const {gameSequence} = this.props
+       console.log(this.props)
         return (
             <div className="container">
-                <Button click={this.handleButtonClick} id="0"/>
-                <Button click={this.handleButtonClick} id="1"/>
-                <Button click={this.handleButtonClick} id="3"/>                
-                <Button click={this.handleButtonClick} id="2"/>
+                <Button id="0" click={::this.onBtnClick} addDissplayPressedButton={addDissplayPressedButton} />
+                <Button id="1" click={this.handleButtonClick} />
+                <Button id="3" click={this.handleButtonClick} />
+                <Button id="2" click={this.handleButtonClick} />
                 <div className="center-circle">
                     <button className="start-circle"></button>
                 </div>
                 {this.displayGameSequence()}
+                <div>{ gameSequence}!</div>
             </div>
         )
     }
 }
+
+
+function mapStateToProps (state) {
+    return {
+        gameSequence: state.sequenceState.gameSequence
+    }
+  }
+
+  function mapDispatchToProps(dispatch){
+      return {
+        actionBtn: bindActionCreators(sequenceAction, dispatch)
+      }
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(App)
 
