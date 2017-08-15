@@ -1,33 +1,35 @@
-import React, {PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as sequenceAction from '../actions/sequenceAction'
-import './style.css';
+import '../styles/style.css';
 
 class Button extends React.PureComponent {
 
-    constructor(props) {
-        super(props);
-        this.classColor = {
-            0: 'red',
-            1: 'green',
-            2: 'yellow',
-            3: 'blue',
+    static defaultProps = {
+        classColor: {
+            red: 'redButton',
+            green: 'greenButton',
+            yellow: 'yellowButton',
+            blue: 'blueButton',
         }
+    }
+
+    onBtnClick(e) {
+        e.preventDefault();
+        this.props.addPressedButton(e.target.id)
     }
 
     render() {
         const id = this.props.id;
         return (
-            <button className={`block-unit ${this.classColor[id]}`}
+            <button className={`block-unit ${this.props.classColor[id]}`}
                 id={id}
-                onClick={this.props.click}
+                onClick={::this.onBtnClick}                
             />)
     }
 }
-
-
-class DisplayPressedButton extends React.PureComponent {
+class PressedButton extends React.PureComponent {
     render() {
         return (
             <div className={`sequence ${this.props.color}`} >
@@ -37,35 +39,21 @@ class DisplayPressedButton extends React.PureComponent {
     }
 }
 
-
-
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            gameSequence: [],
-        }
-        this.classColor = {
-            0: 'sequenceRed',
-            1: 'sequenceGreen',
-            2: 'sequenceYellow',
-            3: 'sequenceBlue',
+    static defaultProps = {
+        classColor: {
+            red: 'sequenceRed',
+            green: 'sequenceGreen',
+            yellow: 'sequenceYellow',
+            blue: 'sequenceBlue',
         }
     }
 
-    onBtnClick(e) {
-        e.preventDefault();
-        const buttonId = e.target.id;
-        const newGameSeq = this.props.gameSequence;
-        newGameSeq.push(buttonId);
-        this.props.actionBtn.addDissplayPressedButton(newGameSeq)
-      }
-      
     renderSequence(sequence, index) {
-        return <DisplayPressedButton
-            value={sequence}
+        return <PressedButton
+            value={sequence.charAt(0)}
             key={`step_${index}`}
-            color={this.classColor[sequence]}
+            color={this.props.classColor[sequence]}
         />
     }
 
@@ -80,37 +68,34 @@ class App extends Component {
     }
 
     render() {
-      const { addDissplayPressedButton} = this.props.actionBtn;
-       const {gameSequence} = this.props
-       console.log(this.props)
+        const { addPressedButton } = this.props.sequenceAction;
         return (
             <div className="container">
-                <Button id="0" click={::this.onBtnClick} addDissplayPressedButton={addDissplayPressedButton} />
-                <Button id="1" click={this.handleButtonClick} />
-                <Button id="3" click={this.handleButtonClick} />
-                <Button id="2" click={this.handleButtonClick} />
+                <Button id="red" addPressedButton={addPressedButton} />
+                <Button id="green" addPressedButton={addPressedButton} />
+                <Button id="blue" addPressedButton={addPressedButton} />
+                <Button id="yellow" addPressedButton={addPressedButton} />
                 <div className="center-circle">
                     <button className="start-circle"></button>
                 </div>
                 {this.displayGameSequence()}
-                <div>{ gameSequence}!</div>
             </div>
         )
     }
 }
 
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
     return {
-        gameSequence: state.sequenceState.gameSequence
+        gameSequence: state.sequenceState.gameSequence,
     }
-  }
+}
 
-  function mapDispatchToProps(dispatch){
-      return {
-        actionBtn: bindActionCreators(sequenceAction, dispatch)
-      }
-  }
-  
-  export default connect(mapStateToProps,mapDispatchToProps)(App)
+function mapDispatchToProps(dispatch) {
+    return {
+        sequenceAction: bindActionCreators(sequenceAction, dispatch),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 

@@ -60,39 +60,39 @@ body{
     box-shadow: inset 0px 0px 10px 3px hsl(0,0%,0%);
 }
 
-.red{
+.redButton{
     background: hsl(0,50%,50%);
     border-top-left-radius: 100%;
 } 
 
-.red:hover{
+.redButton:hover{
      background: hsl(0,100%,50%);
 } 
 
-.blue{
+.blueButton{
     background:hsl(240,50%,50%);
     border-bottom-left-radius: 100%;
 }
 
-.blue:hover{
+.blueButton:hover{
     background: hsl(240,100%,50%);
 }
 
-.green{
+.greenButton{
     background: hsl(120, 50%, 50%);
     border-top-right-radius: 100%;
 }
 
-.green:hover{
+.greenButton:hover{
     background: hsl(120, 100%, 50%);
 }
 
-.yellow{
+.yellowButton{
     background: hsl(60, 50%, 50%);
     border-bottom-right-radius: 100%;
 }
 
-.yellow:hover{
+.yellowButton:hover{
     background: hsl(60, 100%, 50%);
 }
 .sequenceContainer{
