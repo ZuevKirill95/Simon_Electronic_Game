@@ -5,9 +5,16 @@ const initialState = {
 export default function sequenceState(state = initialState, action) {
 
     switch (action.type) {
-        case 'ADD_DISPLAY_PRESSED_BUTTON':
-            return { ...state,
-                gameSequence: state.gameSequence.concat(action.payload)}
+        case 'ADD_SEQUENCE_STEP':
+            return {
+                ...state,
+                gameSequence: state.gameSequence.concat(action.payload)
+            }
+        case 'RESET_SEQUENCE':
+            return {
+                ...state,
+                gameSequence: action.payload
+            }
         default:
             return state;
     }

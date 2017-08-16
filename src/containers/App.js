@@ -1,43 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import '../styles/style.css';
+import ColorButton from '../components/ColorButton'
+import ResetButton from '../components/ResetButton'
+import SequenceStep from '../components/SequenceStep'
 import { bindActionCreators } from 'redux'
 import * as sequenceAction from '../actions/sequenceAction'
-import '../styles/style.css';
 
-class Button extends React.PureComponent {
-
-    static defaultProps = {
-        classColor: {
-            red: 'redButton',
-            green: 'greenButton',
-            yellow: 'yellowButton',
-            blue: 'blueButton',
-        }
-    }
-
-    onBtnClick(e) {
-        e.preventDefault();
-        this.props.addPressedButton(e.target.id)
-    }
-
-    render() {
-        const id = this.props.id;
-        return (
-            <button className={`block-unit ${this.props.classColor[id]}`}
-                id={id}
-                onClick={::this.onBtnClick}                
-            />)
-    }
-}
-class PressedButton extends React.PureComponent {
-    render() {
-        return (
-            <div className={`sequence ${this.props.color}`} >
-                {this.props.value}
-            </div>
-        )
-    }
-}
 
 class App extends Component {
     static defaultProps = {
@@ -50,8 +19,8 @@ class App extends Component {
     }
 
     renderSequence(sequence, index) {
-        return <PressedButton
-            value={sequence.charAt(0)}
+        return <SequenceStep
+            value={sequence[0]}
             key={`step_${index}`}
             color={this.props.classColor[sequence]}
         />
@@ -66,17 +35,19 @@ class App extends Component {
             </div>
         )
     }
-
+    onBtnClick = (e) => {
+        e.preventDefault();
+        this.props.sequenceAction.resetSequence()
+    }
     render() {
-        const { addPressedButton } = this.props.sequenceAction;
         return (
             <div className="container">
-                <Button id="red" addPressedButton={addPressedButton} />
-                <Button id="green" addPressedButton={addPressedButton} />
-                <Button id="blue" addPressedButton={addPressedButton} />
-                <Button id="yellow" addPressedButton={addPressedButton} />
+                <ColorButton id="red" />
+                <ColorButton id="green" />
+                <ColorButton id="blue" />
+                <ColorButton id="yellow" />
                 <div className="center-circle">
-                    <button className="start-circle"></button>
+                    <ResetButton />
                 </div>
                 {this.displayGameSequence()}
             </div>
@@ -84,18 +55,11 @@ class App extends Component {
     }
 }
 
-
 function mapStateToProps(state) {
     return {
         gameSequence: state.sequenceState.gameSequence,
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        sequenceAction: bindActionCreators(sequenceAction, dispatch),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
 

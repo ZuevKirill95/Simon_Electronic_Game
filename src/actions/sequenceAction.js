@@ -1,7 +1,15 @@
-export function addPressedButton(gameSequence) {
+export function addSequenceStep(gameSequence) {
 
     return {
-        type: 'ADD_DISPLAY_PRESSED_BUTTON',
+        type: 'ADD_SEQUENCE_STEP',
         payload: gameSequence
+    }
+}
+
+export function resetSequence() {
+
+    return {
+        type: 'RESET_SEQUENCE',
+        payload: []
     }
 }
