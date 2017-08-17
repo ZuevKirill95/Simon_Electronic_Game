@@ -1,5 +1,6 @@
 const initialState = {
-    gameSequence: []
+    playerSequence: [],
+    computerSequence:['red', 'green', 'red'],
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -8,12 +9,12 @@ export default function sequenceState(state = initialState, action) {
         case 'ADD_SEQUENCE_STEP':
             return {
                 ...state,
-                gameSequence: state.gameSequence.concat(action.payload)
+                playerSequence: state.playerSequence.concat(action.payload)
             }
         case 'RESET_SEQUENCE':
             return {
                 ...state,
-                gameSequence: action.payload
+                playerSequence: action.payload
             }
         default:
             return state;

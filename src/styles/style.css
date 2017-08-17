@@ -40,10 +40,14 @@ body{
     border:none; 
     outline:none;
     box-shadow: inset 0px 0px 3px 2px hsl(0,0%,0%);
+    cursor: pointer; 
 }
 
 .start-circle:active{
     box-shadow: inset 0px 0px 6px 3px hsl(0,0%,0%);
+}
+.start-circle:hover{
+    background: hsl(120, 70%, 50%);
 }
 
 .block-unit{
@@ -98,6 +102,8 @@ body{
 .sequenceContainer{
      display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
+    width: 500px;    
 }
 .sequence{
     width: 20px;
@@ -115,6 +121,9 @@ body{
 }
 .sequenceYellow{
     background: hsl(60, 100%, 50%);;
+}
+.sequenceName{
+    width: 500px;
 }
 
 

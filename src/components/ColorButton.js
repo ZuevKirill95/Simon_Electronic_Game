@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as sequenceAction from '../actions/sequenceAction'
-
+import { addSequenceStep } from '../actions/sequenceAction'
 export class ColorButton extends PureComponent {
 
     static defaultProps = {
@@ -29,10 +28,9 @@ export class ColorButton extends PureComponent {
     }
 }
 
-
 function mapDispatchToProps(dispatch) {
     return {
-        sequenceAction: bindActionCreators(sequenceAction, dispatch),
+        sequenceAction: bindActionCreators({ addSequenceStep }, dispatch),
     }
 }
 
