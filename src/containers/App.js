@@ -3,7 +3,7 @@ import '../styles/style.css';
 import ColorButton from '../components/ColorButton'
 import ResetButton from '../components/ResetButton'
 import GameSequence from '../components/GameSequence'
-
+import CheckSequence from '../components/CheckSequence'
 
 export default class App extends Component {
 
@@ -18,7 +18,8 @@ export default class App extends Component {
                     <ResetButton />
                 </div>
                 <GameSequence id = "computerSequence"/>
-                <GameSequence id = "playerSequence"/>                
+                <GameSequence id = "playerSequence"/>    
+                <CheckSequence/>
             </div>
         )
     }

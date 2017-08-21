@@ -125,5 +125,8 @@ body{
 .sequenceName{
     width: 500px;
 }
+.statusText{
+    font-size: 30px;
+}
 
 

@@ -1,6 +1,8 @@
 const initialState = {
     playerSequence: [],
-    computerSequence:['red', 'green', 'red'],
+    computerSequence: [],
+    isEqualSequense: null,
+    isFinish: null
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -14,7 +16,34 @@ export default function sequenceState(state = initialState, action) {
         case 'RESET_SEQUENCE':
             return {
                 ...state,
-                playerSequence: action.payload
+                playerSequence: action.payload,
+                computerSequence: action.payload
+            }
+        case 'ADD_COMPUTER_STEP':
+            return {
+                ...state,
+                computerSequence: state.computerSequence.concat(action.payload)
+            }
+        case 'EQUAL_SEQUENCES':
+            return {
+                ...state,
+                isEqualSequense: action.payload
+            }
+
+        case 'NOT_EQUAL_SEQUENCES':
+            return {
+                ...state,
+                isEqualSequense: action.payload
+            }
+        case 'FINISH_SEQUENCE':
+            return {
+                ...state,
+                isFinish: action.payload
+            }
+        case 'NOT_FINISH_SEQUENCE':
+            return {
+                ...state,
+                isFinish: action.payload
             }
         default:
             return state;
