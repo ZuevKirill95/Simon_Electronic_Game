@@ -22,33 +22,30 @@ export function addComputerStep(sequenceStep) {
     }
 }
 
-export function equalSequence() {
+export function equalSequence(TrueOrFalse) {
 
     return {
         type: 'EQUAL_SEQUENCES',
-        payload: true,
+        payload: TrueOrFalse,
     }
 }
-export function notEqualSequence() {
 
+export function checkSequence(playerSequence, computerSequence,lastColor) {
     return {
-        type: 'NOT_EQUAL_SEQUENCES',
-        payload: false,
+        type: 'CHECK_SEQUENCE',
+        payload:{
+            playerSequence:playerSequence,
+            computerSequence: computerSequence,
+            lastColor: lastColor
+        }
+        
     }
 }
 
-export function finishSequence() {
+export function finishSequence(TrueOrFalse) {
 
     return {
         type: 'FINISH_SEQUENCE',
-        payload: true,
-    }
-}
-
-export function notFinishSequence() {
-
-    return {
-        type: 'NOT_FINISH_SEQUENCE',
-        payload: false,
+        payload: TrueOrFalse,
     }
 }

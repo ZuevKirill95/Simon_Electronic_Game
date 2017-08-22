@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { resetSequence, addComputerStep, notFinishSequence,notEqualSequence } from '../actions/sequenceAction'
+import { resetSequence, addComputerStep, finishSequence, equalSequence } from '../actions/sequenceAction'
 
 export class ResetButton extends PureComponent {
     onBtnClick = (e) => {
         e.preventDefault();
         this.props.sequenceAction.resetSequence()
-        this.props.sequenceAction.notFinishSequence()
-        this.props.sequenceAction.notEqualSequence()
+        this.props.sequenceAction.finishSequence(false)
+        this.props.sequenceAction.equalSequence(false)
         const arrColor = ['red', 'green', 'yellow', 'blue']
         for (let i = 0; i < 5; i++) {
             const colorId = Math.floor(Math.random() * 4);
@@ -28,7 +28,7 @@ export class ResetButton extends PureComponent {
 
 function mapDispatchToProps(dispatch) {
     return {
-        sequenceAction: bindActionCreators({ resetSequence, addComputerStep, notFinishSequence,notEqualSequence }, dispatch),
+        sequenceAction: bindActionCreators({ resetSequence, addComputerStep, finishSequence, equalSequence }, dispatch),
     }
 }
 

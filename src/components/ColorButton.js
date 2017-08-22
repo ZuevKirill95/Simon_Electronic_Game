@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addSequenceStep, equalSequence, notEqualSequence, finishSequence } from '../actions/sequenceAction'
+import { addSequenceStep, equalSequence, finishSequence, checkSequence } from '../actions/sequenceAction'
 export class ColorButton extends PureComponent {
 
     static defaultProps = {
@@ -12,20 +12,8 @@ export class ColorButton extends PureComponent {
             blue: 'blueButton',
         }
     }
-    checkSequence(playerSequence, computerSequence, color) {
-        for (let i = 0; i < playerSequence.length; i++) {
-            if (playerSequence[i] !== computerSequence[i]) {
-                console.log(i)
-                return false;
-            }
-        }
-        if (color === computerSequence[computerSequence.length - 1]) {
-            return true;
-        }
-        else false
-    }
 
-    isFinish(playerSequence, computerSequence) {
+    checkFinish(playerSequence, computerSequence) {
         return (playerSequence.length == computerSequence.length - 1) ? true : false
     }
 
@@ -34,15 +22,11 @@ export class ColorButton extends PureComponent {
             return
         e.preventDefault();
         const { playerSequence, computerSequence, id } = this.props;
-        const { addSequenceStep, finishSequence, equalSequence, notEqualSequence } = this.props.sequenceAction;
+        const { addSequenceStep, finishSequence, checkSequence } = this.props.sequenceAction;
         addSequenceStep(id)
-        if (this.isFinish(playerSequence, computerSequence)) {
-            finishSequence()
-            if (this.checkSequence(playerSequence, computerSequence, id))
-                equalSequence()
-            else
-                notEqualSequence()
-
+        if (this.checkFinish(playerSequence, computerSequence)) {
+            finishSequence(true)
+            checkSequence(playerSequence, computerSequence, id);
         }
     }
 
@@ -66,7 +50,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        sequenceAction: bindActionCreators({ addSequenceStep, equalSequence, notEqualSequence, finishSequence }, dispatch),
+        sequenceAction: bindActionCreators({ addSequenceStep, equalSequence, finishSequence, checkSequence }, dispatch),
     }
 }
 
