@@ -18,7 +18,7 @@ export default function sequenceState(state = initialState, action) {
             return {
                 ...state,
                 playerSequence: action.payload,
-                computerSequence: action.payload
+                computerSequence: []
             }
 
         case 'ADD_COMPUTER_STEP':
@@ -48,7 +48,6 @@ export default function sequenceState(state = initialState, action) {
                     break;
                 }
             }
-
             if (isEqual === true)
                 if (lastColor !== computerSequence[computerSequence.length - 1]) {
                     isEqual = false;

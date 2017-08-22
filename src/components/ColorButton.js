@@ -14,7 +14,7 @@ export class ColorButton extends PureComponent {
     }
 
     checkFinish(playerSequence, computerSequence) {
-        return (playerSequence.length == computerSequence.length - 1) ? true : false
+        return (playerSequence.length === computerSequence.length - 1)
     }
 
     onBtnClick = (e) => {
