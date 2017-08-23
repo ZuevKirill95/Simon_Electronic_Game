@@ -2,7 +2,8 @@ const initialState = {
     playerSequence: [],
     computerSequence: [],
     isEqualSequense: null,
-    isFinish: null
+    isFinish: null,
+    lengthSequence: 5,
 }
 
 export default function sequenceState(state = initialState, action) {

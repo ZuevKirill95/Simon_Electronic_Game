@@ -30,15 +30,15 @@ export function equalSequence(TrueOrFalse) {
     }
 }
 
-export function checkSequence(playerSequence, computerSequence,lastColor) {
+export function checkSequence(playerSequence, computerSequence, lastColor) {
     return {
         type: 'CHECK_SEQUENCE',
-        payload:{
-            playerSequence:playerSequence,
+        payload: {
+            playerSequence: playerSequence,
             computerSequence: computerSequence,
             lastColor: lastColor
         }
-        
+
     }
 }
 

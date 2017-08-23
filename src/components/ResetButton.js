@@ -4,16 +4,25 @@ import { bindActionCreators } from 'redux'
 import { resetSequence, addComputerStep, finishSequence, equalSequence } from '../actions/sequenceAction'
 
 export class ResetButton extends PureComponent {
+
+    addComputerStepInterval = () => {
+        const arrColor = ['red', 'green', 'yellow', 'blue']
+        const { addComputerStep, lengthSequence } = this.props;
+        let i = 1;
+        let timerId = setInterval(() => {
+            const colorId = Math.floor(Math.random() * 4);
+            addComputerStep(arrColor[colorId])
+            if (i == lengthSequence) clearInterval(timerId);
+            i++;
+        }, 700);
+    }
+
     onBtnClick = (e) => {
         e.preventDefault();
-        this.props.sequenceAction.resetSequence()
-        this.props.sequenceAction.finishSequence(false)
-        this.props.sequenceAction.equalSequence(false)
-        const arrColor = ['red', 'green', 'yellow', 'blue']
-        for (let i = 0; i < 5; i++) {
-            const colorId = Math.floor(Math.random() * 4);
-            this.props.sequenceAction.addComputerStep(arrColor[colorId])
-        }
+        this.props.resetSequence()
+        this.props.finishSequence(false)
+        this.props.equalSequence(false)
+        this.addComputerStepInterval();
     }
 
     render() {
@@ -26,10 +35,19 @@ export class ResetButton extends PureComponent {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
     return {
-        sequenceAction: bindActionCreators({ resetSequence, addComputerStep, finishSequence, equalSequence }, dispatch),
+        lengthSequence: state.sequenceState.lengthSequence,
     }
 }
 
-export default connect(null, mapDispatchToProps)(ResetButton)
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        resetSequence: resetSequence,
+        addComputerStep: addComputerStep,
+        finishSequence: finishSequence,
+        equalSequence: equalSequence,
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetButton)

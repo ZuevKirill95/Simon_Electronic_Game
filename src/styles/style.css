@@ -129,4 +129,12 @@ body{
     font-size: 30px;
 }
 
+.statusTextGood{
+    color: green
+}
+
+.statusTextWrong{
+    color: red
+}
+
 
