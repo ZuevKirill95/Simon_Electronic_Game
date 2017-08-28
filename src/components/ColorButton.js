@@ -1,39 +1,27 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addSequenceStep, equalSequence, finishSequence, checkSequence } from '../actions/sequenceAction'
+import { addPlayerStep} from '../actions/sequenceAction'
 
 export class ColorButton extends PureComponent {
-    static defaultProps = {
-        classColor: {
-            red: 'redButton',
-            green: 'greenButton',
-            yellow: 'yellowButton',
-            blue: 'blueButton',
-        }
-    }
-
-    checkFinish(playerSequence, computerSequence) {
-        return (playerSequence.length === computerSequence.length - 1)
+    classColor = {
+        red: 'redButton',
+        green: 'greenButton',
+        yellow: 'yellowButton',
+        blue: 'blueButton',
     }
 
     onBtnClick = (e) => {
-        if (this.props.isFinish || this.props.computerSequence.length !== this.props.lengthSequence)
-            return
         e.preventDefault();
-        const { playerSequence, computerSequence, id } = this.props;
-        const { addSequenceStep, finishSequence, checkSequence } = this.props;
-        addSequenceStep(id)
-        if (this.checkFinish(playerSequence, computerSequence)) {
-            finishSequence(true)
-            checkSequence(playerSequence, computerSequence, id);
-        }
+        const { playerSequence, computerSequence, id, isFinish, lengthSequence } = this.props;
+        const { addPlayerStep } = this.props;
+        addPlayerStep(playerSequence, computerSequence, id, isFinish, lengthSequence)
     }
 
     render() {
-        const id = this.props.id;
+        const { id } = this.props;
         return (
-            <button className={`block-unit ${this.props.classColor[id]}`}
+            <button className={`block-unit ${this.classColor[id]}`}
                 id={id}
                 onClick={this.onBtnClick}
             />)
@@ -51,10 +39,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        addSequenceStep: addSequenceStep,
-        checkSequence: checkSequence,
-        finishSequence: finishSequence,
-        equalSequence: equalSequence,
+        addPlayerStep: addPlayerStep
     }, dispatch);
 }
 

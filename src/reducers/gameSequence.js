@@ -9,17 +9,21 @@ const initialState = {
 export default function sequenceState(state = initialState, action) {
 
     switch (action.type) {
-        case 'ADD_SEQUENCE_STEP':
+        case 'ADD_PLAYER_STEP':
             return {
                 ...state,
-                playerSequence: state.playerSequence.concat(action.payload)
+                playerSequence: state.playerSequence.concat(action.payload.playerSequence),
+                isFinish: action.payload.isFinish,
+                isEqualSequense: (action.payload.isEqualSequense == null) ? state.isEqualSequense : action.payload.isEqualSequense
             }
 
         case 'RESET_SEQUENCE':
             return {
                 ...state,
-                playerSequence: action.payload,
-                computerSequence: []
+                playerSequence: action.payload.playerSequence,
+                computerSequence: action.payload.computerSequence,
+                isFinish: action.payload.isFinish,
+                isEqualSequense: action.payload.isEqualSequense,
             }
 
         case 'ADD_COMPUTER_STEP':
@@ -28,36 +32,6 @@ export default function sequenceState(state = initialState, action) {
                 computerSequence: state.computerSequence.concat(action.payload)
             }
 
-        case 'EQUAL_SEQUENCES':
-            return {
-                ...state,
-                isEqualSequense: action.payload
-            }
-
-        case 'FINISH_SEQUENCE':
-            return {
-                ...state,
-                isFinish: action.payload
-            }
-
-        case 'CHECK_SEQUENCE': {
-            let isEqual = true;
-            const { playerSequence, computerSequence, lastColor } = action.payload
-            for (let i = 0; i < action.payload.playerSequence.length; i++) {
-                if (playerSequence[i] !== computerSequence[i]) {
-                    isEqual = false;
-                    break;
-                }
-            }
-            if (isEqual === true)
-                if (lastColor !== computerSequence[computerSequence.length - 1]) {
-                    isEqual = false;
-                }
-            return {
-                ...state,
-                isEqualSequense: isEqual
-            }
-        }
         default:
             return state;
     }

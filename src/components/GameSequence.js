@@ -3,14 +3,11 @@ import { connect } from 'react-redux'
 import StepSequence from '../components/StepSequence'
 
 export class GameSequence extends PureComponent {
-    constructor(props) {
-        super(props)
-        this.classColor = {
-            red: 'sequenceRed',
-            green: 'sequenceGreen',
-            yellow: 'sequenceYellow',
-            blue: 'sequenceBlue',
-        }
+    classColor = {
+        red: 'sequenceRed',
+        green: 'sequenceGreen',
+        yellow: 'sequenceYellow',
+        blue: 'sequenceBlue',
     }
 
     renderSequence(sequence, index) {
@@ -43,6 +40,5 @@ function mapStateToProps(state) {
         computerSequence: state.sequenceState.computerSequence,
     }
 }
-
 
 export default connect(mapStateToProps)(GameSequence)
