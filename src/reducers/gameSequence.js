@@ -4,6 +4,7 @@ const initialState = {
     isEqualSequense: null,
     isFinish: null,
     lengthSequence: 5,
+    RGYBlight: [false, false, false, false],
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -20,16 +21,22 @@ export default function sequenceState(state = initialState, action) {
         case 'RESET_SEQUENCE':
             return {
                 ...state,
-                playerSequence: action.payload.playerSequence,
-                computerSequence: action.payload.computerSequence,
-                isFinish: action.payload.isFinish,
-                isEqualSequense: action.payload.isEqualSequense,
+                playerSequence: [],
+                computerSequence: [],
+                isFinish: false,
+                isEqualSequense: false,
             }
 
         case 'ADD_COMPUTER_STEP':
             return {
                 ...state,
-                computerSequence: state.computerSequence.concat(action.payload)
+                computerSequence: state.computerSequence.concat(action.payload.computerSequence),
+                RGYBlight: action.payload.RGYBlight,
+            }
+
+        case 'ADD_COMPUTER_STEP_INTERVAL':
+            return {
+                ...state,
             }
 
         default:

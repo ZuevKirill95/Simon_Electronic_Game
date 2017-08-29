@@ -1,18 +1,17 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-
 export class CheckSequence extends PureComponent {
     render() {
-        const { isEqualSequense,isFinish } = this.props
+        const { isEqualSequense, isFinish } = this.props
         let statusText = ''
         let classColor = ''
-        if(isFinish){
+        if (isFinish) {
             statusText = ((isEqualSequense) ? 'good!' : 'wrong')
             classColor = ((isEqualSequense) ? 'statusTextGood' : 'statusTextWrong')
         }
         return (
-            <div className = {`statusText ${classColor}`}>
+            <div className={`statusText ${classColor}`}>
                 {statusText}
             </div>
         )

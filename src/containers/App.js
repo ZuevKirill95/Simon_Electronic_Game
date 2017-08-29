@@ -10,10 +10,10 @@ export default class App extends Component {
     render() {
         return (
             <div className="container">
-                <ColorButton id="red" />
-                <ColorButton id="green" />
-                <ColorButton id="blue" />
-                <ColorButton id="yellow" />
+                <ColorButton id="redButton" />
+                <ColorButton id="greenButton" />
+                <ColorButton id="blueButton" />
+                <ColorButton id="yellowButton" />
                 <div className="center-circle">
                     <ResetButton />
                 </div>

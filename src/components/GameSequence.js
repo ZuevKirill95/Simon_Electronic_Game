@@ -4,10 +4,10 @@ import StepSequence from '../components/StepSequence'
 
 export class GameSequence extends PureComponent {
     classColor = {
-        red: 'sequenceRed',
-        green: 'sequenceGreen',
-        yellow: 'sequenceYellow',
-        blue: 'sequenceBlue',
+        redButton: 'sequenceRed',
+        greenButton: 'sequenceGreen',
+        yellowButton: 'sequenceYellow',
+        blueButton: 'sequenceBlue',
     }
 
     renderSequence(sequence, index) {

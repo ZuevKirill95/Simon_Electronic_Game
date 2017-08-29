@@ -1,27 +1,45 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addPlayerStep} from '../actions/sequenceAction'
+import { addPlayerStep } from '../actions/sequenceAction'
 
 export class ColorButton extends PureComponent {
     classColor = {
-        red: 'redButton',
-        green: 'greenButton',
-        yellow: 'yellowButton',
-        blue: 'blueButton',
+        redButton: 'lightRedButton',
+        greenButton: 'lightGreenButton',
+        yellowButton: 'lightYellowButton',
+        blueButton: 'lightBlueButton',
+    }
+    
+    lightColor = {
+        0: 'lightRedButton',
+        1: 'lightGreenButton',
+        2: 'lightYellowButton',
+        3: 'lightBlueButton',
     }
 
+    checkLightButton = () => {
+        const {RGYBlight} = this.props;
+        for(let i = 0; i<4;i++){
+            if(RGYBlight[i])
+                return this.lightColor[i];
+        }
+        return null
+    }
     onBtnClick = (e) => {
         e.preventDefault();
-        const { playerSequence, computerSequence, id, isFinish, lengthSequence } = this.props;
-        const { addPlayerStep } = this.props;
-        addPlayerStep(playerSequence, computerSequence, id, isFinish, lengthSequence)
+        const { addPlayerStep, id } = this.props;
+        addPlayerStep(id)
     }
 
     render() {
-        const { id } = this.props;
+        const {RGYBlight} = this.props;
+        
+        console.log(RGYBlight)
+        const { id} = this.props;
+        const lightButton = this.checkLightButton();
         return (
-            <button className={`block-unit ${this.classColor[id]}`}
+            <button className={`block-unit ${id} ${this.classColor[id] === lightButton? lightButton: ''}`}
                 id={id}
                 onClick={this.onBtnClick}
             />)
@@ -30,10 +48,7 @@ export class ColorButton extends PureComponent {
 
 function mapStateToProps(state) {
     return {
-        playerSequence: state.sequenceState.playerSequence,
-        computerSequence: state.sequenceState.computerSequence,
-        isFinish: state.sequenceState.isFinish,
-        lengthSequence: state.sequenceState.lengthSequence,
+        RGYBlight: state.sequenceState.RGYBlight,
     }
 }
 

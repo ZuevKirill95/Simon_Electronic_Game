@@ -73,12 +73,20 @@ body{
      background: hsl(0,100%,50%);
 } 
 
+.lightRedButton{
+    background: hsl(0,100%,50%);
+} 
+
 .blueButton{
     background:hsl(240,50%,50%);
     border-bottom-left-radius: 100%;
 }
 
 .blueButton:hover{
+    background: hsl(240,100%,50%);
+}
+
+.lightBlueButton{
     background: hsl(240,100%,50%);
 }
 
@@ -91,12 +99,20 @@ body{
     background: hsl(120, 100%, 50%);
 }
 
+.lightGreenButton{
+    background: hsl(120, 100%, 50%);
+}
+
 .yellowButton{
     background: hsl(60, 50%, 50%);
     border-bottom-right-radius: 100%;
 }
 
 .yellowButton:hover{
+    background: hsl(60, 100%, 50%);
+}
+
+.lightYellowButton{
     background: hsl(60, 100%, 50%);
 }
 .sequenceContainer{
