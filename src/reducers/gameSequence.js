@@ -4,7 +4,8 @@ const initialState = {
     isEqualSequense: null,
     isFinish: null,
     lengthSequence: 5,
-    RGYBlight: [false, false, false, false],
+    lighten: null
+
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -31,14 +32,14 @@ export default function sequenceState(state = initialState, action) {
             return {
                 ...state,
                 computerSequence: state.computerSequence.concat(action.payload.computerSequence),
-                RGYBlight: action.payload.RGYBlight,
+                lighten: action.payload.lighten,
             }
 
-        case 'ADD_COMPUTER_STEP_INTERVAL':
+        case 'RESET_BLINK':
             return {
                 ...state,
+                lighten: null,
             }
-
         default:
             return state;
     }

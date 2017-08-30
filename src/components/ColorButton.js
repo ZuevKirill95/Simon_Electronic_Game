@@ -4,28 +4,13 @@ import { bindActionCreators } from 'redux'
 import { addPlayerStep } from '../actions/sequenceAction'
 
 export class ColorButton extends PureComponent {
-    classColor = {
+    lightClass = {
         redButton: 'lightRedButton',
         greenButton: 'lightGreenButton',
         yellowButton: 'lightYellowButton',
         blueButton: 'lightBlueButton',
     }
-    
-    lightColor = {
-        0: 'lightRedButton',
-        1: 'lightGreenButton',
-        2: 'lightYellowButton',
-        3: 'lightBlueButton',
-    }
 
-    checkLightButton = () => {
-        const {RGYBlight} = this.props;
-        for(let i = 0; i<4;i++){
-            if(RGYBlight[i])
-                return this.lightColor[i];
-        }
-        return null
-    }
     onBtnClick = (e) => {
         e.preventDefault();
         const { addPlayerStep, id } = this.props;
@@ -33,22 +18,19 @@ export class ColorButton extends PureComponent {
     }
 
     render() {
-        const {RGYBlight} = this.props;
-        
-        console.log(RGYBlight)
-        const { id} = this.props;
-        const lightButton = this.checkLightButton();
+        const { id, lighten, lightButton } = this.props;
         return (
-            <button className={`block-unit ${id} ${this.classColor[id] === lightButton? lightButton: ''}`}
+            <button className={`block-unit ${id} ${lighten && this.lightClass[lightButton]}`}
                 id={id}
                 onClick={this.onBtnClick}
             />)
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
     return {
-        RGYBlight: state.sequenceState.RGYBlight,
+        lighten: state.sequenceState.lighten === ownProps.id,
+        lightButton: state.sequenceState.lighten,
     }
 }
 

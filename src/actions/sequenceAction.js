@@ -1,66 +1,63 @@
-export function addPlayerStep(color) {
-    return (dispatch, getState) => {
-        let isEqualSequense = null;
-        let { playerSequence, computerSequence, isFinish, lengthSequence } = getState().sequenceState
-        if (isFinish || computerSequence.length !== lengthSequence) {
-            color = []
-        }
-        else if (color === computerSequence[playerSequence.length]) {
-            if (checkFinish(playerSequence, computerSequence)) {
-                isFinish = true;
-                isEqualSequense = true;
-            }
-        }
-        else {
-            isFinish = true;
-            isEqualSequense = false;
-        }
-        dispatch({
-            type: 'ADD_PLAYER_STEP',
-            payload: {
-                playerSequence: color,
-                isFinish: isFinish,
-                isEqualSequense: isEqualSequense
-            }
-        })
+export const addPlayerStep = (color) => (dispatch, getState) => {
+    const { playerSequence, computerSequence, isFinish, lengthSequence } = getState().sequenceState
+    let isEqualSequense = null;
+    let finish = isFinish;
+    if (isFinish || computerSequence.length !== lengthSequence) {
+        color = []
     }
+    else if (color === computerSequence[playerSequence.length]) {
+        if (playerSequence.length === computerSequence.length - 1) {
+            finish = true;
+            isEqualSequense = true;
+        }
+    }
+    else {
+        finish = true;
+        isEqualSequense = false;
+    }
+    dispatch({
+        type: 'ADD_PLAYER_STEP',
+        payload: {
+            playerSequence: color,
+            isFinish: finish,
+            isEqualSequense: isEqualSequense
+        }
+    })
 }
 
-function checkFinish(playerSequence, computerSequence) {
-    return (playerSequence.length === computerSequence.length - 1)
-}
-
-export function resetSequence() {
+export const resetSequence = () => {
     return {
         type: 'RESET_SEQUENCE',
     }
 }
 
 export const addComputerStepInterval = () => (dispatch, getState) => {
-    let { lengthSequence, RGYBlight } = getState().sequenceState
+    const { lengthSequence } = getState().sequenceState
     let i = 1;
     let timerId = setInterval(() => {
-        dispatch(addComputerStep(RGYBlight))
+        dispatch(addComputerStep())
         if (i === lengthSequence) clearInterval(timerId);
         i++;
-    }, 700);
+    }, 1000);
     dispatch({ type: 'ADD_COMPUTER_STEP_INTERVAL' });
 }
 
-export function addComputerStep(RGYBlight) {
+export const addComputerStep = () => (dispatch) => {
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
     const colorId = Math.floor(Math.random() * 4);
-    console.log(colorId)
-    for(let i = 0; i<4; i++){
-        RGYBlight[i] = false
-    }
-    RGYBlight[colorId] = true;
-    return {
+    setTimeout(() => dispatch(resetBlink()), 700)
+    dispatch({
         type: 'ADD_COMPUTER_STEP',
         payload: {
             computerSequence: arrColor[colorId],
-            RGYBlight: RGYBlight,
+            lighten: arrColor[colorId],
         }
+    })
+}
+
+export const resetBlink = () => {
+    return {
+        type: 'RESET_BLINK'
     }
 }
 
