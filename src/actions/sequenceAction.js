@@ -32,13 +32,11 @@ export const resetSequence = () => {
 }
 
 export const addComputerStepInterval = () => (dispatch, getState) => {
-    const { lengthSequence } = getState().sequenceState
-    let i = 1;
-    let timerId = setInterval(() => {
-        dispatch(addComputerStep())
-        if (i === lengthSequence) clearInterval(timerId);
-        i++;
-    }, 1000);
+    const { lengthSequence } = getState().sequenceState;
+    for (let i = 0; i < lengthSequence; i++)
+        setTimeout(() => {
+            dispatch(addComputerStep())
+        }, i * 1000);
     dispatch({ type: 'ADD_COMPUTER_STEP_INTERVAL' });
 }
 

@@ -67,6 +67,7 @@ body{
 .redButton{
     background: hsl(0,50%,50%);
     border-top-left-radius: 100%;
+    transition: background 0.2s ease-in-out;    
 } 
 
 .redButton:active{
@@ -80,6 +81,7 @@ body{
 .blueButton{
     background:hsl(240,50%,50%);
     border-bottom-left-radius: 100%;
+    transition: background 0.2s ease-in-out;    
 }
 
 .blueButton:active{
@@ -93,6 +95,7 @@ body{
 .greenButton{
     background: hsl(120, 50%, 50%);
     border-top-right-radius: 100%;
+    transition: background 0.2s ease-in-out;    
 }
 
 .greenButton:active{
@@ -106,6 +109,7 @@ body{
 .yellowButton{
     background: hsl(60, 50%, 50%);
     border-bottom-right-radius: 100%;
+    transition: background 0.2s ease-in-out;
 }
 
 .yellowButton:active{
