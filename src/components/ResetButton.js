@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { resetSequence, addComputerStepInterval } from '../actions/sequenceAction'
+import { resetSequence, addComputerStep,displaySequence } from '../actions/sequenceAction'
 
 export class ResetButton extends PureComponent {
 
     onBtnClick = (e) => {
         e.preventDefault();
         this.props.resetSequence()
-        this.props.addComputerStepInterval();
+        this.props.addComputerStep();
+        this.props.displaySequence();
     }
 
     render() {
@@ -24,7 +25,8 @@ export class ResetButton extends PureComponent {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         resetSequence: resetSequence,
-        addComputerStepInterval: addComputerStepInterval,
+        addComputerStep: addComputerStep,
+        displaySequence: displaySequence,
     }, dispatch);
 }
 

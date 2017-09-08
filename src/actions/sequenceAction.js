@@ -1,27 +1,10 @@
 export const addPlayerStep = (color) => (dispatch, getState) => {
-    const { playerSequence, computerSequence, isFinish, lengthSequence } = getState().sequenceState
-    let isEqualSequense = null;
-    let finish = isFinish;
-    if (isFinish || computerSequence.length !== lengthSequence) {
-        color = []
-    }
-    else if (color === computerSequence[playerSequence.length]) {
-        if (playerSequence.length === computerSequence.length - 1) {
-            finish = true;
-            isEqualSequense = true;
-        }
-    }
-    else {
-        finish = true;
-        isEqualSequense = false;
-    }
+    const { finishBlink } = getState().sequenceState;
+    if (!finishBlink)
+        color = [];
     dispatch({
         type: 'ADD_PLAYER_STEP',
-        payload: {
-            playerSequence: color,
-            isFinish: finish,
-            isEqualSequense: isEqualSequense
-        }
+        payload: color,
     })
 }
 
@@ -31,25 +14,31 @@ export const resetSequence = () => {
     }
 }
 
-export const addComputerStepInterval = () => (dispatch, getState) => {
-    const { lengthSequence } = getState().sequenceState;
-    for (let i = 0; i < lengthSequence; i++)
-        setTimeout(() => {
-            dispatch(addComputerStep())
-        }, i * 1000);
-    dispatch({ type: 'ADD_COMPUTER_STEP_INTERVAL' });
-}
-
 export const addComputerStep = () => (dispatch) => {
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
     const colorId = Math.floor(Math.random() * 4);
-    setTimeout(() => dispatch(resetBlink()), 700)
+
     dispatch({
         type: 'ADD_COMPUTER_STEP',
-        payload: {
-            computerSequence: arrColor[colorId],
-            lighten: arrColor[colorId],
-        }
+        payload: arrColor[colorId],
+    })
+}
+
+export const displaySequence = () => (dispatch, getState) => {
+    const { computerSequence } = getState().sequenceState;
+    computerSequence.map((button, index) => {
+        setTimeout(() => dispatch(buttonBlink(button, index)), index * 1000)
+    })
+}
+
+export const buttonBlink = (button, index) => (dispatch, getState) => {
+    const { computerSequence } = getState().sequenceState;
+    setTimeout(() => dispatch(resetBlink()), 700)
+    if (index === computerSequence.length - 1)
+        setTimeout(() => dispatch(finishBlink()), 600)
+    dispatch({
+        type: 'BUTTON_BLINK',
+        payload: button
     })
 }
 
@@ -58,4 +47,12 @@ export const resetBlink = () => {
         type: 'RESET_BLINK'
     }
 }
+
+export const finishBlink = () => {
+    return {
+        type: 'FINISH_BLINK'
+    }
+}
+
+
 
