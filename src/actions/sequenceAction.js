@@ -1,11 +1,10 @@
 export const addPlayerStep = (color) => (dispatch, getState) => {
-    const { finishBlink } = getState().sequenceState;
-    if (!finishBlink)
-        color = [];
-    dispatch({
-        type: 'ADD_PLAYER_STEP',
-        payload: color,
-    })
+    const { finishBlink, isEqualSequense } = getState().sequenceState;
+    if (finishBlink && isEqualSequense)
+        dispatch({
+            type: 'ADD_PLAYER_STEP',
+            payload: color,
+        })
 }
 
 export const resetSequence = () => {
@@ -17,7 +16,6 @@ export const resetSequence = () => {
 export const addComputerStep = () => (dispatch) => {
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
     const colorId = Math.floor(Math.random() * 4);
-
     dispatch({
         type: 'ADD_COMPUTER_STEP',
         payload: arrColor[colorId],

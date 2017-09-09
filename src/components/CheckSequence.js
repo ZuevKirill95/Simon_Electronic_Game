@@ -7,14 +7,20 @@ export class CheckSequence extends PureComponent {
     componentDidUpdate() {
         const { isEqualSequense, isFinish, addComputerStep, displaySequence } = this.props
         if (isFinish && isEqualSequense) {
-            addComputerStep();
-            displaySequence();
+            setTimeout(() => {
+                addComputerStep();
+                displaySequence();
+            }, 1000)
         }
     }
     render() {
         const { isEqualSequense, isFinish } = this.props
         let statusText = ''
-        let classColor = ''   
+        let classColor = ''
+
+        statusText = ((isEqualSequense) ? '' : 'wrong')
+        classColor = ((isEqualSequense) ? '' : 'statusTextWrong')
+
         if (isFinish) {
             statusText = ((isEqualSequense) ? 'good!' : 'wrong')
             classColor = ((isEqualSequense) ? 'statusTextGood' : 'statusTextWrong')
