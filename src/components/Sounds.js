@@ -5,17 +5,17 @@ import { connect } from 'react-redux'
 
 export class Sounds extends Component {
     urlSound = {
-        redButton: '../assets/sounds/simonSound1.mp3',
-        greenButton: '../assets/sounds/simonSound1.mp3',
-        yellowButton: '../assets/sounds/simonSound1.mp3',
-        blueButton: '../assets/sounds/simonSound1.mp3',
+        redButton: require('../assets/sounds/simonSound1.mp3'),
+        greenButton: require('../assets/sounds/simonSound1.mp3'),
+        yellowButton: require('../assets/sounds/simonSound1.mp3'),
+        blueButton: require('../assets/sounds/simonSound1.mp3'),
     }
 
     setUrl = () => {
         const { button, isEqualSequense } = this.props;
         if (isEqualSequense)
             return this.urlSound[button]
-        return '../assets/sounds/wrong.mp3'
+        return require('../assets/sounds/wrong.mp3')
     }
 
     render() {
