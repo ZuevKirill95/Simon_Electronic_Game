@@ -3,7 +3,6 @@ const initialState = {
     computerSequence: [],
     isEqualSequense: true,
     isFinish: null,
-    lengthSequence: 5,
     lighten: null,
     finishBlink: null,
     pressedButton: null,
@@ -15,12 +14,11 @@ export default function sequenceState(state = initialState, action) {
     switch (action.type) {
         case 'ADD_PLAYER_STEP': {
             const { playerSequence, computerSequence } = state;
-            console.log(action.payload)
             return {
                 ...state,
                 playerSequence: playerSequence.concat(action.payload),
-                isFinish: (computerSequence.length === playerSequence.length + 1) ? true : false,
-                isEqualSequense: (computerSequence[playerSequence.length] === action.payload) ? true : false,
+                isFinish: (computerSequence.length === playerSequence.length + 1),
+                isEqualSequense: (computerSequence[playerSequence.length] === action.payload),
                 pressedButton: action.payload, 
                 changeSound: !state.changeSound                
             }

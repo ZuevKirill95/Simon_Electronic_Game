@@ -16,14 +16,12 @@ export class CheckSequence extends PureComponent {
     render() {
         const { isEqualSequense, isFinish } = this.props
         let statusText = ''
-        let classColor = ''
-
-        statusText = ((isEqualSequense) ? '' : 'wrong')
-        classColor = ((isEqualSequense) ? '' : 'statusTextWrong')
-
+        let classColor = '';
+        (!isEqualSequense) && (statusText = 'wrong');
+        (!isEqualSequense) && (classColor = 'statusTextWrong');
         if (isFinish) {
-            statusText = ((isEqualSequense) ? 'good!' : 'wrong')
-            classColor = ((isEqualSequense) ? 'statusTextGood' : 'statusTextWrong')
+            (isEqualSequense) && (statusText = 'good!');
+            (isEqualSequense) && (classColor = 'statusTextGood');
         }
         return (
             <div className={`statusText ${classColor}`}>
