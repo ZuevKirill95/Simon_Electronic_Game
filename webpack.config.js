@@ -41,19 +41,11 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-<<<<<<< HEAD
       },
       {
         test: /\.mp3$/,
         use: ['file-loader']
       }
-=======
-    },
-    {
-        test: /\.mp3$/,
-        use: ['file-loader']
-    }
->>>>>>> c31c50012cd8f04a89cb36be8647ab8cb1fdacd0
     ]
   }
 }
