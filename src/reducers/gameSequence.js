@@ -6,7 +6,6 @@ const initialState = {
     lighten: null,
     finishBlink: null,
     pressedButton: null,
-    changeSound: true,
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -18,9 +17,7 @@ export default function sequenceState(state = initialState, action) {
                 ...state,
                 playerSequence: playerSequence.concat(action.payload),
                 isFinish: (computerSequence.length === playerSequence.length + 1),
-                isEqualSequense: (computerSequence[playerSequence.length] === action.payload),
-                pressedButton: action.payload, 
-                changeSound: !state.changeSound                
+                isEqualSequense: (computerSequence[playerSequence.length] === action.payload),           
             }
         }
 
@@ -47,7 +44,6 @@ export default function sequenceState(state = initialState, action) {
                 lighten: action.payload,
                 pressedButton: action.payload,                                
                 finishBlink: false,
-                changeSound: !state.changeSound
             }
 
         case 'RESET_BLINK':

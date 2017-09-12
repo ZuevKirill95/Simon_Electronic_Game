@@ -4,14 +4,14 @@ import ColorButton from '../components/ColorButton'
 import ResetButton from '../components/ResetButton'
 import GameSequence from '../components/GameSequence'
 import CheckSequence from '../components/CheckSequence'
-import Sounds from '../components/Sounds'
+import SoundsBlink from '../components/SoundsBlink'
 
 export default class App extends Component {
 
     render() {
         return (
             <div className="container">
-                <Sounds />
+                <SoundsBlink />
                 <ColorButton id="redButton" />
                 <ColorButton id="greenButton" />
                 <ColorButton id="blueButton" />
