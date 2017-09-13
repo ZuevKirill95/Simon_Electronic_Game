@@ -11,11 +11,11 @@ export class GameSequence extends PureComponent {
         blueButton: 'sequenceBlue',
     }
 
-    renderSequence(sequence, index) {
+    renderSequence(sequence) {
         return (
             <StepSequence
                 className={`sequence ${this.classColor[sequence]}`}
-                id={_.uniqueId("step-")}
+                key={uniqueId('step-')}
                 value={sequence[0]}
             />
         )
@@ -29,7 +29,7 @@ export class GameSequence extends PureComponent {
         return (
             <div className="sequenceContainer">
                 <div className="sequenceName">{id}</div>
-                {gameSequence.map((item, index) => this.renderSequence(item, index))}
+                {gameSequence.map((item) => this.renderSequence(item))}
             </div>
         )
     }
