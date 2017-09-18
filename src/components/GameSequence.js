@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import StepSequence from '../components/StepSequence'
 import { uniqueId } from 'lodash'
 
 export class GameSequence extends PureComponent {
@@ -13,11 +12,11 @@ export class GameSequence extends PureComponent {
 
     renderSequence(sequence) {
         return (
-            <StepSequence
+            <div
                 className={`sequence ${this.classColor[sequence]}`}
-                key={uniqueId('step-')}
-                value={sequence[0]}
-            />
+                key={uniqueId('step-')}>
+                {sequence[0]}
+            </div>
         )
     }
 
