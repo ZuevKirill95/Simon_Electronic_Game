@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { resetSequence, addComputerStep, displaySequence } from '../actions/sequenceAction'
 import { bindActionCreators } from 'redux'
 
-export class CheckSequence extends PureComponent {
-    componentDidUpdate() {
-        const { isEqualSequense, isFinish, addComputerStep, displaySequence } = this.props
+export const CheckSequence = (props) => {
+    const addNextCopmuterStep = () => {
+        const { isEqualSequense, isFinish, addComputerStep, displaySequence } = props
         if (isFinish && isEqualSequense) {
             setTimeout(() => {
                 addComputerStep();
@@ -13,22 +13,21 @@ export class CheckSequence extends PureComponent {
             }, 1000)
         }
     }
-    render() {
-        const { isEqualSequense, isFinish } = this.props
-        let statusText = ''
-        let classColor = '';
-        (!isEqualSequense) && (statusText = 'wrong');
-        (!isEqualSequense) && (classColor = 'statusTextWrong');
-        if (isFinish) {
-            (isEqualSequense) && (statusText = 'good!');
-            (isEqualSequense) && (classColor = 'statusTextGood');
-        }
-        return (
-            <div className={`statusText ${classColor}`}>
-                {statusText}
-            </div>
-        )
+    const { isEqualSequense, isFinish } = props
+    let statusText = ''
+    let classColor = '';
+    (!isEqualSequense) && (statusText = 'wrong');
+    (!isEqualSequense) && (classColor = 'statusTextWrong');
+    if (isFinish) {
+        (isEqualSequense) && (statusText = 'good!');
+        (isEqualSequense) && (classColor = 'statusTextGood');
     }
+    addNextCopmuterStep();
+    return (
+        <div className={`statusText ${classColor}`}>
+            {statusText}
+        </div>
+    )
 }
 
 function mapDispatchToProps(dispatch) {

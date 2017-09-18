@@ -1,25 +1,23 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { resetSequence, addComputerStep,displaySequence } from '../actions/sequenceAction'
+import { resetSequence, addComputerStep, displaySequence } from '../actions/sequenceAction'
 
-export class ResetButton extends PureComponent {
+export const ResetButton = (props) => {
 
-    onBtnClick = (e) => {
+    const onBtnClick = (e) => {
         e.preventDefault();
-        this.props.resetSequence()
-        this.props.addComputerStep();
-        this.props.displaySequence();
+        props.resetSequence()
+        props.addComputerStep();
+        props.displaySequence();
     }
 
-    render() {
-        return (
-            <button
-                className="start-circle"
-                onClick={this.onBtnClick}>
-            </button>
-        )
-    }
+    return (
+        <button
+            className="start-circle"
+            onClick={onBtnClick}>
+        </button>
+    )
 }
 
 function mapDispatchToProps(dispatch) {

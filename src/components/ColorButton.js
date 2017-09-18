@@ -1,45 +1,44 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { addPlayerStep } from '../actions/sequenceAction'
 
-export class ColorButton extends PureComponent {
-    lightClass = {
+export const ColorButton = (props) => {
+
+    const lightClass = {
         redButton: 'lightRedButton',
         greenButton: 'lightGreenButton',
         yellowButton: 'lightYellowButton',
         blueButton: 'lightBlueButton',
     }
-    urlSound = {
+    const urlSound = {
         redButton: require('../assets/sounds/simonSound1.mp3'),
         greenButton: require('../assets/sounds/simonSound2.mp3'),
         yellowButton: require('../assets/sounds/simonSound3.mp3'),
         blueButton: require('../assets/sounds/simonSound4.mp3'),
     }
 
-    onBtnClick = (e) => {
+    const onBtnClick = (e) => {
         e.preventDefault();
-        const { addPlayerStep, id, playerSequence, computerSequence } = this.props;
+        const { addPlayerStep, id, playerSequence, computerSequence } = props;
         addPlayerStep(id)
         const buttonSound = new Audio;
         if (computerSequence[playerSequence.length] === id)
-            buttonSound.src = this.urlSound[id];
+            buttonSound.src = urlSound[id];
         else
             buttonSound.src = require('../assets/sounds/wrong.mp3')
         buttonSound.play();
     }
 
-    render() {
-        const { id, lighten, lightButton } = this.props;
-        return (
-            <div>
-                <button className={`block-unit ${id} ${lighten && this.lightClass[lightButton]}`}
-                    id={id}
-                    onClick={this.onBtnClick}
-                />
-            </div>
-        )
-    }
+    const { id, lighten, lightButton } = props;
+    return (
+        <div>
+            <button className={`block-unit ${id} ${lighten && lightClass[lightButton]}`}
+                id={id}
+                onClick={onBtnClick}
+            />
+        </div>
+    )
 }
 
 function mapStateToProps(state, ownProps) {
