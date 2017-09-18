@@ -11,6 +11,7 @@ export const ColorButton = (props) => {
         yellowButton: 'lightYellowButton',
         blueButton: 'lightBlueButton',
     }
+
     const urlSound = {
         redButton: require('../assets/sounds/simonSound1.mp3'),
         greenButton: require('../assets/sounds/simonSound2.mp3'),
@@ -18,19 +19,18 @@ export const ColorButton = (props) => {
         blueButton: require('../assets/sounds/simonSound4.mp3'),
     }
 
-    const onBtnClick = (e) => {
-        e.preventDefault();
-        const { addPlayerStep, id, playerSequence, computerSequence } = props;
+    const { addPlayerStep, id, playerSequence, computerSequence, lighten, lightButton } = props
+
+    const onBtnClick = () => {
         addPlayerStep(id)
-        const buttonSound = new Audio;
+        const buttonSound = new Audio
         if (computerSequence[playerSequence.length] === id)
-            buttonSound.src = urlSound[id];
+            buttonSound.src = urlSound[id]
         else
             buttonSound.src = require('../assets/sounds/wrong.mp3')
-        buttonSound.play();
+        buttonSound.play()
     }
 
-    const { id, lighten, lightButton } = props;
     return (
         <div>
             <button className={`block-unit ${id} ${lighten && lightClass[lightButton]}`}
@@ -53,7 +53,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         addPlayerStep: addPlayerStep
-    }, dispatch);
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorButton)

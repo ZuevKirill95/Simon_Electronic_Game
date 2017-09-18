@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { uniqueId } from 'lodash'
 
 export const GameSequence = (props) => {
+
     const classColor = {
         redButton: 'sequenceRed',
         greenButton: 'sequenceGreen',
@@ -21,7 +22,7 @@ export const GameSequence = (props) => {
     }
 
     if (props.computerSequence.length == 0)
-        return <div></div>
+        return null
     const { id } = props
     const gameSequence = props[id]
     return (

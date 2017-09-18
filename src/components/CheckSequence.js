@@ -4,16 +4,18 @@ import { resetSequence, addComputerStep, displaySequence } from '../actions/sequ
 import { bindActionCreators } from 'redux'
 
 export const CheckSequence = (props) => {
+
+    const { isEqualSequense, isFinish, addComputerStep, displaySequence } = props
+
     const addNextCopmuterStep = () => {
-        const { isEqualSequense, isFinish, addComputerStep, displaySequence } = props
         if (isFinish && isEqualSequense) {
             setTimeout(() => {
-                addComputerStep();
-                displaySequence();
+                addComputerStep()
+                displaySequence()
             }, 1000)
         }
     }
-    const { isEqualSequense, isFinish } = props
+    
     let statusText = ''
     let classColor = '';
     (!isEqualSequense) && (statusText = 'wrong');
@@ -22,7 +24,7 @@ export const CheckSequence = (props) => {
         (isEqualSequense) && (statusText = 'good!');
         (isEqualSequense) && (classColor = 'statusTextGood');
     }
-    addNextCopmuterStep();
+    addNextCopmuterStep()
     return (
         <div className={`statusText ${classColor}`}>
             {statusText}
@@ -35,7 +37,7 @@ function mapDispatchToProps(dispatch) {
         resetSequence: resetSequence,
         addComputerStep: addComputerStep,
         displaySequence: displaySequence,
-    }, dispatch);
+    }, dispatch)
 }
 
 function mapStateToProps(state) {

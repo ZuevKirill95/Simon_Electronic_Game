@@ -5,11 +5,10 @@ import { resetSequence, addComputerStep, displaySequence } from '../actions/sequ
 
 export const ResetButton = (props) => {
 
-    const onBtnClick = (e) => {
-        e.preventDefault();
+    const onBtnClick = () => {
         props.resetSequence()
-        props.addComputerStep();
-        props.displaySequence();
+        props.addComputerStep()
+        props.displaySequence()
     }
 
     return (
@@ -25,7 +24,7 @@ function mapDispatchToProps(dispatch) {
         resetSequence: resetSequence,
         addComputerStep: addComputerStep,
         displaySequence: displaySequence,
-    }, dispatch);
+    }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(ResetButton)
