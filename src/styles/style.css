@@ -44,11 +44,8 @@ body{
 }
 
 .start-circle:active{
-    box-shadow: inset 0px 0px 6px 3px hsl(0,0%,0%);
-}
-
-.start-circle:hover{
     background: hsl(180,70%,52%);
+    box-shadow: inset 0px 0px 10px 3px hsl(0,0%,0%);
 }
 
 .block-unit{

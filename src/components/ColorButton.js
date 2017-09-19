@@ -19,21 +19,23 @@ export const ColorButton = (props) => {
         blueButton: require('../assets/sounds/simonSound4.mp3'),
     }
 
-    const { addPlayerStep, id, playerSequence, computerSequence, lighten, lightButton } = props
+    const { addPlayerStep, id, playerSequence, computerSequence, lighten, lightButton, isFinish, finishBlink } = props
 
     const onBtnClick = () => {
-        addPlayerStep(id)
-        const buttonSound = new Audio
-        if (computerSequence[playerSequence.length] === id)
-            buttonSound.src = urlSound[id]
-        else
-            buttonSound.src = require('../assets/sounds/wrong.mp3')
-        buttonSound.play()
+            addPlayerStep(id)
+            const buttonSound = new Audio
+            if (computerSequence[playerSequence.length] === id)
+                buttonSound.src = urlSound[id]
+            else
+                buttonSound.src = require('../assets/sounds/wrong.mp3')
+            buttonSound.play()
     }
 
     return (
         <div>
-            <button className={`block-unit ${id} ${lighten && lightClass[lightButton]}`}
+            <button
+                className={`block-unit ${id} ${lighten && lightClass[lightButton]}`}
+                disabled={!finishBlink || isFinish}
                 id={id}
                 onClick={onBtnClick}
             />
@@ -46,7 +48,9 @@ function mapStateToProps(state, ownProps) {
         lighten: state.sequenceState.lighten === ownProps.id,
         lightButton: state.sequenceState.lighten,
         computerSequence: state.sequenceState.computerSequence,
-        playerSequence: state.sequenceState.playerSequence
+        playerSequence: state.sequenceState.playerSequence,
+        isFinish: state.sequenceState.isFinish,
+        finishBlink: state.sequenceState.finishBlink,
     }
 }
 

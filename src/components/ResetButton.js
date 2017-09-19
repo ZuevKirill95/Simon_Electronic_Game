@@ -4,19 +4,27 @@ import { bindActionCreators } from 'redux'
 import { resetSequence, addComputerStep, displaySequence } from '../actions/sequenceAction'
 
 export const ResetButton = (props) => {
+    const { finishBlink, resetSequence, addComputerStep, displaySequence } = props
 
     const onBtnClick = () => {
-        props.resetSequence()
-        props.addComputerStep()
-        props.displaySequence()
+            resetSequence()
+            addComputerStep()
+            displaySequence()
     }
 
     return (
         <button
             className="start-circle"
+            disabled={finishBlink !== null && !finishBlink}
             onClick={onBtnClick}>
         </button>
     )
+}
+
+function mapStateToProps(state) {
+    return {
+        finishBlink: state.sequenceState.finishBlink,
+    }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -27,4 +35,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(ResetButton)
+export default connect(mapStateToProps, mapDispatchToProps)(ResetButton)
