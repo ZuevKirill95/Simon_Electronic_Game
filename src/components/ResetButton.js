@@ -7,15 +7,15 @@ export const ResetButton = (props) => {
     const { finishBlink, resetSequence, addComputerStep, displaySequence } = props
 
     const onBtnClick = () => {
-            resetSequence()
-            addComputerStep()
-            displaySequence()
+        resetSequence()
+        addComputerStep()
+        displaySequence()
     }
 
     return (
         <button
             className="start-circle"
-            disabled={finishBlink !== null && !finishBlink}
+           // disabled={finishBlink !== null && !finishBlink}
             onClick={onBtnClick}>
         </button>
     )
