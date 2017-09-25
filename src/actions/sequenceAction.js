@@ -1,4 +1,3 @@
-var Promise = require('es6-promise-polyfill').Promise;
 
 export const addPlayerStep = (color) => (dispatch, getState) => {
     const { finishBlink, isEqualSequense } = getState().sequenceState;
@@ -15,6 +14,7 @@ export const resetSequence = () => {
     }
 }
 
+
 export const addComputerStep = () => (dispatch) => {
 
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
@@ -26,34 +26,34 @@ export const addComputerStep = () => (dispatch) => {
 }
 
 export const displaySequence = () => (dispatch, getState) => {
-    const { computerSequence } = getState().sequenceState;
-    Promise.all(computerSequence.map((button, index) => {
-        setTimeout(() => dispatch(buttonBlink(button, index, computerSequence.length)), index * 1000)
-    }))
-        .catch((err) => console.log(err.message))
+    const seq = [...getState().sequenceState.computerSequence] //можно взять просто computerSequence, но я люблю иммутабельность
+    const chain = Promise.resolve() //делаем пустой промис
+
+    seq.map(
+        (step, index) => chain.then(() => dispatch(buttonBlink(step, index))) //добавляем к нему в цепочку миллион наших экшенов, которые будут выполняться асинхронно
+    )
+
+    chain // пора бы нашей цепочке выполниться
 }
 
-export const buttonBlink = (button, index, length) => (dispatch, getState) => {
-    return new Promise((resolve, reject) => {
-        const { computerSequence } = getState().sequenceState;
-        if (length !== computerSequence.length) return reject(new Error('Error blink'))
-        const urlSound = {
-            redButton: require('../assets/sounds/simonSound1.mp3'),
-            greenButton: require('../assets/sounds/simonSound2.mp3'),
-            yellowButton: require('../assets/sounds/simonSound3.mp3'),
-            blueButton: require('../assets/sounds/simonSound4.mp3'),
-        }
-        const buttonSound = new Audio;
-        buttonSound.src = urlSound[button];
-        buttonSound.play();
-        setTimeout(() => dispatch(resetBlink()), 700)
-        if (index === computerSequence.length - 1)
-            setTimeout(() => dispatch(finishBlink()), 600)
-        dispatch({
-            type: 'BUTTON_BLINK',
-            payload: button
-        })
-    })
+export const buttonBlink = (button, index) => (dispatch, getState) => {
+
+    const length = getState().sequenceState.computerSequence.length
+    const urlSound = {
+        redButton: require('../assets/sounds/simonSound1.mp3'),
+        greenButton: require('../assets/sounds/simonSound2.mp3'),
+        yellowButton: require('../assets/sounds/simonSound3.mp3'),
+        blueButton: require('../assets/sounds/simonSound4.mp3'),
+    }
+    const buttonSound = new Audio
+    buttonSound.src = urlSound[button]
+    buttonSound.play()
+
+    Promise.resolve()
+    .then(() => dispatch({ type: 'BUTTON_BLINK', payload: button }))
+    .then(() => dispatch(resetBlink()))
+    .then(() => ++index === length && dispatch(finishBlink()))
+
 }
 
 export const resetBlink = () => {
@@ -67,6 +67,3 @@ export const finishBlink = () => {
         type: 'FINISH_BLINK'
     }
 }
-
-
-
