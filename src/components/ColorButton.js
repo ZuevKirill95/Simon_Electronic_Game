@@ -35,7 +35,7 @@ export const ColorButton = (props) => {
         <div>
             <button
                 className={`block-unit ${id} ${lighten && lightClass[lightButton]}`}
-                disabled={!finishBlink || isFinish}
+               // disabled={!finishBlink || isFinish}
                 id={id}
                 onClick={onBtnClick}
             />

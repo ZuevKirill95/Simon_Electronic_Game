@@ -8,23 +8,17 @@ export const CheckSequence = (props) => {
     const { isEqualSequense, isFinish, addComputerStep, displaySequence } = props
 
     const addNextCopmuterStep = () => {
-        if (isFinish && isEqualSequense) {
-            setTimeout(() => {
-                addComputerStep()
-                displaySequence()
-            }, 1000)
-        }
+        setTimeout(() => {
+            addComputerStep()
+            displaySequence()
+        }, 1000)
     }
-    
+
     let statusText = ''
     let classColor = '';
-    (!isEqualSequense) && (statusText = 'wrong');
-    (!isEqualSequense) && (classColor = 'statusTextWrong');
-    if (isFinish) {
-        (isEqualSequense) && (statusText = 'good!');
-        (isEqualSequense) && (classColor = 'statusTextGood');
-    }
-    addNextCopmuterStep()
+    (!isEqualSequense) && (statusText = 'wrong') && (classColor = 'statusTextWrong');
+    if (isFinish)
+        (isEqualSequense) && (statusText = 'good!') && (classColor = 'statusTextGood') && addNextCopmuterStep()
     return (
         <div className={`statusText ${classColor}`}>
             {statusText}

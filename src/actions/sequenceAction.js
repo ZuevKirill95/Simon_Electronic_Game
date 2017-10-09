@@ -14,7 +14,6 @@ export const resetSequence = () => {
     }
 }
 
-
 export const addComputerStep = () => (dispatch) => {
 
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
@@ -40,8 +39,8 @@ export const buttonBlink = (button, index) => (dispatch, getState) => {
     return new Promise((resolve, reject) => {
 
         setTimeout(() => {
+            console.log('button click')
             const length = getState().sequenceState.computerSequence.length
-            if (index > length - 1) reject();
             const urlSound = {
                 redButton: require('../assets/sounds/simonSound1.mp3'),
                 greenButton: require('../assets/sounds/simonSound2.mp3'),
@@ -56,27 +55,27 @@ export const buttonBlink = (button, index) => (dispatch, getState) => {
                 .then(() => dispatch({ type: 'BUTTON_BLINK', payload: button }))
                 .then(() => dispatch(resetBlink()))
                 .then(() => (++index === length && dispatch(finishBlink())))
-
-
-        }, 1000 * index)
+        }, 1000)
 
     })
 }
 
+
 export const resetBlink = () => (dispatch) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log('button reset')
             dispatch({ type: 'RESET_BLINK' })
             resolve()
-        }, 700
-
-        )
+        }, 700)
     })
 }
 
 export const finishBlink = () => (dispatch) => {
     return new Promise((resolve, reject) => {
         dispatch({ type: 'FINISH_BLINK' })
+        console.log('finishBlink')
+
         resolve()
     })
 }
