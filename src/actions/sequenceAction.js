@@ -26,13 +26,11 @@ export const addComputerStep = () => (dispatch) => {
 
 export const displaySequence = () => (dispatch, getState) => {
     const seq = [...getState().sequenceState.computerSequence]
-    const chain = Promise.resolve()
-
-    seq.map(
-        (step, index) => chain.then(() => dispatch(buttonBlink(step, index)))
-    )
-
-    chain
+    
+    seq.reduce((promise, step, index) => {
+        return promise.then(() =>
+            dispatch(buttonBlink(step, index)))
+    }, Promise.resolve())
 }
 
 export const buttonBlink = (button, index) => (dispatch, getState) => {
