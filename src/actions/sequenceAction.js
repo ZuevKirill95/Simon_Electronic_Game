@@ -26,54 +26,49 @@ export const addComputerStep = () => (dispatch) => {
 
 export const displaySequence = () => (dispatch, getState) => {
     const seq = [...getState().sequenceState.computerSequence]
-    
-    seq.reduce((promise, step, index) => {
-        return promise.then(() =>
-            dispatch(buttonBlink(step, index)))
-    }, Promise.resolve())
+
+    const chain = async () => {
+        for (let i = 0; i < seq.length; ++i) {
+            await dispatch(buttonBlink(seq[i], i))
+        }
+    }
+
+    chain()
 }
 
-export const buttonBlink = (button, index) => (dispatch, getState) => {
-    return new Promise((resolve, reject) => {
+export const buttonBlink = (button, index) => async (dispatch, getState) => {
 
-        setTimeout(() => {
-            console.log('button click')
-            const length = getState().sequenceState.computerSequence.length
-            const urlSound = {
-                redButton: require('../assets/sounds/simonSound1.mp3'),
-                greenButton: require('../assets/sounds/simonSound2.mp3'),
-                yellowButton: require('../assets/sounds/simonSound3.mp3'),
-                blueButton: require('../assets/sounds/simonSound4.mp3'),
-            }
-            const buttonSound = new Audio
-            buttonSound.src = urlSound[button]
-            buttonSound.play()
+    await setTimeout(() => {
+        console.log('button click')
+        const length = getState().sequenceState.computerSequence.length
+        const urlSound = {
+            redButton: require('../assets/sounds/simonSound1.mp3'),
+            greenButton: require('../assets/sounds/simonSound2.mp3'),
+            yellowButton: require('../assets/sounds/simonSound3.mp3'),
+            blueButton: require('../assets/sounds/simonSound4.mp3'),
+        }
+        const buttonSound = new Audio
+        buttonSound.src = urlSound[button]
+        buttonSound.play()
 
-            Promise.resolve()
-                .then(() => dispatch({ type: 'BUTTON_BLINK', payload: button }))
-                .then(() => dispatch(resetBlink()))
-                .then(() => (++index === length && dispatch(finishBlink())))
-        }, 1000)
-
-    })
+        const blink = async () => {
+            await dispatch({ type: 'BUTTON_BLINK', payload: button })
+            await dispatch(resetBlink())
+            await (++index === length && dispatch(finishBlink()))
+        }
+        blink();
+    }, 1000)
 }
 
 
-export const resetBlink = () => (dispatch) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log('button reset')
-            dispatch({ type: 'RESET_BLINK' })
-            resolve()
-        }, 700)
-    })
+export const resetBlink = () => async (dispatch) => {
+    await setTimeout(() => {
+        console.log('button reset')
+        dispatch({ type: 'RESET_BLINK' })
+    }, 700)
 }
 
 export const finishBlink = () => (dispatch) => {
-    return new Promise((resolve, reject) => {
-        dispatch({ type: 'FINISH_BLINK' })
-        console.log('finishBlink')
-
-        resolve()
-    })
+    dispatch({ type: 'FINISH_BLINK' })
+    console.log('finishBlink')
 }
