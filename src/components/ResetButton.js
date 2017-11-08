@@ -15,7 +15,7 @@ export const ResetButton = (props) => {
     return (
         <button
             className="start-circle"
-           // disabled={finishBlink !== null && !finishBlink}
+            disabled={finishBlink !== null && !finishBlink}
             onClick={onBtnClick}>
         </button>
     )
