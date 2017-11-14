@@ -15,7 +15,6 @@ export const resetSequence = () => {
 }
 
 export const addComputerStep = () => (dispatch) => {
-
     const arrColor = ['redButton', 'greenButton', 'yellowButton', 'blueButton']
     const colorId = Math.floor(Math.random() * 4);
     dispatch({
@@ -26,21 +25,25 @@ export const addComputerStep = () => (dispatch) => {
 
 export const displaySequence = () => (dispatch, getState) => {
     const seq = [...getState().sequenceState.computerSequence]
-    const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
     const chain = async (seq) => {
         for (let i in seq) {
-            await wait();
-            await dispatch(buttonBlink(seq[i], i))
+            await wait(500);
+            dispatch(buttonBlink(seq[i], i))
+            sound(seq[i])
+            await wait(500);
+            dispatch(resetBlink());
+            (++i === seq.length && dispatch(finishBlink()))
         }
     }
     chain(seq)
 }
 
-export const buttonBlink = (button, index) => (dispatch, getState) => {
-    const length = getState().sequenceState.computerSequence.length
-    if (index >= length)
-        return
+const buttonBlink = (button) => (dispatch) => {
+    dispatch({ type: 'BUTTON_BLINK', payload: button })
+}
 
+const sound = (button) => {
     const urlSound = {
         redButton: require('../assets/sounds/simonSound1.mp3'),
         greenButton: require('../assets/sounds/simonSound2.mp3'),
@@ -50,22 +53,12 @@ export const buttonBlink = (button, index) => (dispatch, getState) => {
     const buttonSound = new Audio
     buttonSound.src = urlSound[button]
     buttonSound.play()
-
-    const waitReset = () => new Promise(resolve => setTimeout(resolve, 700))
-
-    const blink = async () => {
-        await dispatch({ type: 'BUTTON_BLINK', payload: button })
-        await waitReset();
-        await dispatch(resetBlink())
-        await (++index === length && dispatch(finishBlink()))
-    }
-    blink();
 }
 
 export const resetBlink = () => (dispatch) => {
     dispatch({ type: 'RESET_BLINK' })
 }
 
-export const finishBlink = () => (dispatch) => {
+const finishBlink = () => (dispatch) => {
     dispatch({ type: 'FINISH_BLINK' })
 }
