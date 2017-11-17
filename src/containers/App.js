@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import '../styles/style.css';
 import ColorButton from '../components/ColorButton'
-import ResetButton from '../components/ResetButton'
+import CenterButton from '../components/CenterButton'
 import DisplaySequence from '../components/DisplaySequence'
-import CheckSequence from '../components/CheckSequence'
 import CheatMode from '../components/CheatMode'
+import Start from '../components/Start'
 
 CheatMode
 export default class App extends Component {
@@ -15,13 +15,11 @@ export default class App extends Component {
                 <ColorButton id="greenButton" />
                 <ColorButton id="blueButton" />
                 <ColorButton id="yellowButton" />
-                <div className="center-circle">
-                    <ResetButton />
-                </div>
-                <CheatMode />     
+                <CenterButton />
+                <Start />
+                <CheatMode />
                 <DisplaySequence id="computerSequence" />
-                <DisplaySequence id="playerSequence" />          
-                <CheckSequence /> 
+                <DisplaySequence id="playerSequence" />
             </div>
         )
     }
