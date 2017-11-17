@@ -30,11 +30,14 @@ export const continueOrRestart = () => async (dispatch, getState) => {
         dispatch(addComputerStep())
         dispatch(displaySequence())
     }
-    if (!isEqualSequense) {
+    else if (!isEqualSequense) {
         dispatch(resetSequence());
-        return
+        await wait(1000)
+        dispatch(addComputerStep())
+        dispatch(displaySequence())
     }
 }
+
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const displaySequence = () => (dispatch, getState) => {
@@ -77,5 +80,5 @@ const finishBlink = () => {
 }
 
 export const switchCheatMode = () => {
-    return { type: 'SWITCH_CHEAT_MODE'}
+    return { type: 'SWITCH_CHEAT_MODE' }
 }
