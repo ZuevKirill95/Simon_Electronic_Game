@@ -23,9 +23,22 @@ export const addComputerStep = () => (dispatch) => {
     })
 }
 
+export const continueOrRestart = () => async (dispatch, getState) => {
+    const { isEqualSequense, isFinish, computerSequence } = getState().sequenceState;
+    if (isFinish && isEqualSequense || computerSequence.length === 0) {
+        await wait(1000)
+        dispatch(addComputerStep())
+        dispatch(displaySequence())
+    }
+    if (!isEqualSequense) {
+        dispatch(resetSequence());
+        return
+    }
+}
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
 export const displaySequence = () => (dispatch, getState) => {
     const seq = [...getState().sequenceState.computerSequence]
-    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
     const chain = async (seq) => {
         for (let i in seq) {
             await wait(500);
@@ -39,8 +52,8 @@ export const displaySequence = () => (dispatch, getState) => {
     chain(seq)
 }
 
-const buttonBlink = (button) => (dispatch) => {
-    dispatch({ type: 'BUTTON_BLINK', payload: button })
+const buttonBlink = (button) => {
+    return { type: 'BUTTON_BLINK', payload: button }
 }
 
 const sound = (button) => {
@@ -55,10 +68,14 @@ const sound = (button) => {
     buttonSound.play()
 }
 
-export const resetBlink = () => (dispatch) => {
-    dispatch({ type: 'RESET_BLINK' })
+export const resetBlink = () => {
+    return { type: 'RESET_BLINK' }
 }
 
-const finishBlink = () => (dispatch) => {
-    dispatch({ type: 'FINISH_BLINK' })
+const finishBlink = () => {
+    return { type: 'FINISH_BLINK' }
+}
+
+export const switchCheatMode = () => {
+    return { type: 'SWITCH_CHEAT_MODE'}
 }

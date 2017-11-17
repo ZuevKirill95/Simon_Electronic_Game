@@ -1,43 +1,28 @@
 import React from 'react'
+
 import { connect } from 'react-redux'
-import { resetSequence, addComputerStep, displaySequence } from '../actions/sequenceAction'
+import { continueOrRestart } from '../actions/sequenceAction'
 import { bindActionCreators } from 'redux'
 
-export const CheckSequence = (props) => {
+export const CheckSequence= (props) => {
 
-    const { isEqualSequense, isFinish, addComputerStep, displaySequence } = props
+    const { continueOrRestart } = props
+    continueOrRestart()
 
-    const addNextCopmuterStep = () => {
-        setTimeout(() => {
-            addComputerStep()
-            displaySequence()
-        }, 1000)
-    }
-
-    let statusText = ''
-    let classColor = '';
-    (!isEqualSequense) && (statusText = 'wrong') && (classColor = 'statusTextWrong');
-    if (isFinish)
-        (isEqualSequense) && (statusText = 'good!') && (classColor = 'statusTextGood') && addNextCopmuterStep()
-    return (
-        <div className={`statusText ${classColor}`}>
-            {statusText}
-        </div>
-    )
+    return null
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        resetSequence: resetSequence,
-        addComputerStep: addComputerStep,
-        displaySequence: displaySequence,
+        continueOrRestart: continueOrRestart,
     }, dispatch)
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         isEqualSequense: state.sequenceState.isEqualSequense,
         isFinish: state.sequenceState.isFinish,
+        length: state.sequenceState.playerSequence,
     }
 }
 

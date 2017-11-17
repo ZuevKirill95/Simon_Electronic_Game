@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import '../styles/style.css';
 import ColorButton from '../components/ColorButton'
 import ResetButton from '../components/ResetButton'
-import GameSequence from '../components/GameSequence'
+import DisplaySequence from '../components/DisplaySequence'
 import CheckSequence from '../components/CheckSequence'
+import CheatMode from '../components/CheatMode'
 
+CheatMode
 export default class App extends Component {
     render() {
         return (
@@ -16,9 +18,10 @@ export default class App extends Component {
                 <div className="center-circle">
                     <ResetButton />
                 </div>
-                <GameSequence id="computerSequence" />
-                <GameSequence id="playerSequence" />
-                <CheckSequence />
+                <CheatMode />     
+                <DisplaySequence id="computerSequence" />
+                <DisplaySequence id="playerSequence" />          
+                <CheckSequence /> 
             </div>
         )
     }

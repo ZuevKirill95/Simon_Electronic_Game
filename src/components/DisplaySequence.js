@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { uniqueId } from 'lodash'
 
-export const GameSequence = (props) => {
+export const DisplaySequence = (props) => {
 
     const classColor = {
         redButton: 'sequenceRed',
@@ -20,8 +20,8 @@ export const GameSequence = (props) => {
             </div>
         )
     }
-
-    if (props.computerSequence.length == 0)
+    
+    if (!props.isCheatMode)
         return null
     const { id } = props
     const gameSequence = props[id]
@@ -33,11 +33,12 @@ export const GameSequence = (props) => {
     )
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
         playerSequence: state.sequenceState.playerSequence,
         computerSequence: state.sequenceState.computerSequence,
+        isCheatMode: state.sequenceState.isCheatMode,
     }
 }
 
-export default connect(mapStateToProps)(GameSequence)
+export default connect(mapStateToProps)(DisplaySequence)

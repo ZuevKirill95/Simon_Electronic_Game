@@ -22,13 +22,13 @@ export const ColorButton = (props) => {
     const { addPlayerStep, id, playerSequence, computerSequence, lighten, lightButton, isFinish, finishBlink } = props
 
     const onBtnClick = () => {
-            addPlayerStep(id)
-            const buttonSound = new Audio
-            if (computerSequence[playerSequence.length] === id)
-                buttonSound.src = urlSound[id]
-            else
-                buttonSound.src = require('../assets/sounds/wrong.mp3')
-            buttonSound.play()
+        addPlayerStep(id)
+        const buttonSound = new Audio
+        if (computerSequence[playerSequence.length] === id)
+            buttonSound.src = urlSound[id]
+        else
+            buttonSound.src = require('../assets/sounds/wrong.mp3')
+        buttonSound.play()
     }
 
     return (
@@ -43,7 +43,7 @@ export const ColorButton = (props) => {
     )
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
     return {
         lighten: state.sequenceState.lighten === ownProps.id,
         lightButton: state.sequenceState.lighten,
@@ -54,7 +54,7 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         addPlayerStep: addPlayerStep
     }, dispatch)

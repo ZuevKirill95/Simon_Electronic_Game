@@ -5,6 +5,7 @@ const initialState = {
     isFinish: null,
     lighten: null,
     finishBlink: null,
+    isCheatMode: false,
 }
 
 export default function sequenceState(state = initialState, action) {
@@ -56,6 +57,12 @@ export default function sequenceState(state = initialState, action) {
                 finishBlink: true,
             }
 
+        case 'SWITCH_CHEAT_MODE':
+            return {
+                ...state,
+                isCheatMode: !state.isCheatMode,
+            }
+            
         default:
             return state;
     }
