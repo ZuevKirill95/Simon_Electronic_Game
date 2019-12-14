@@ -9,7 +9,6 @@
     "react"
   ],
   "rules": {
-    "no-console": 0,
     "new-cap": 0,
     "strict": 0,
     "no-underscore-dangle": 0,
