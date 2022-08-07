@@ -43,14 +43,6 @@ body{
     cursor: pointer; 
 }
 
-.start-circle:active{
-    box-shadow: inset 0px 0px 6px 3px hsl(0,0%,0%);
-}
-
-.start-circle:hover{
-    background: hsl(180,70%,52%);
-}
-
 .block-unit{
     width: 230px;
     height: 230px;
@@ -146,16 +138,4 @@ body{
 .sequenceName{
     width: 500px;
 }
-.statusText{
-    font-size: 30px;
-}
-
-.statusTextGood{
-    color: green
-}
-
-.statusTextWrong{
-    color: red
-}
-
 

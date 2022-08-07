@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import '../styles/style.css';
 import ColorButton from '../components/ColorButton'
-import ResetButton from '../components/ResetButton'
-import GameSequence from '../components/GameSequence'
-import CheckSequence from '../components/CheckSequence'
+import CenterButton from '../components/CenterButton'
+import DisplaySequence from '../components/DisplaySequence'
+import CheatMode from '../components/CheatMode'
+import Start from '../components/Start'
 
+CheatMode
 export default class App extends Component {
-
     render() {
         return (
             <div className="container">
@@ -14,12 +15,11 @@ export default class App extends Component {
                 <ColorButton id="greenButton" />
                 <ColorButton id="blueButton" />
                 <ColorButton id="yellowButton" />
-                <div className="center-circle">
-                    <ResetButton />
-                </div>
-                <GameSequence id="computerSequence" />
-                <GameSequence id="playerSequence" />
-                <CheckSequence />
+                <CenterButton />
+                <Start />
+                <CheatMode />
+                <DisplaySequence id="computerSequence" />
+                <DisplaySequence id="playerSequence" />
             </div>
         )
     }
